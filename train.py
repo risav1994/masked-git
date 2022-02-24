@@ -20,11 +20,11 @@ class Train:
         self.opt_vq = torch.optim.Adam(
             self.vqgan.parameters(),
             lr=1e-4
-        ).to(self.device)
+        )
         self.opt_disc = torch.optim.Adam(
             self.discriminator.parameters(),
             lr=1e-4
-        ).to(self.device)
+        )
         transform = T.Compose([Transform(crop_size=256)])
         self.dataset = PreProcessor(folder="Data/images/train2014", transform=transform)
         self.generator = DataLoader(self.dataset, batch_size=8, shuffle=True, num_workers=8).to(self.device)
