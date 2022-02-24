@@ -4,8 +4,8 @@ from Data.generator import PreProcessor, Transform
 from Models.losses import calc_quant_loss, adopt_weight, LPIPS, calc_lambda
 from torch.utils.data import DataLoader
 from torchvision import transforms as T
-from glob import glob
 from collections import deque
+from tqdm import tqdm
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
