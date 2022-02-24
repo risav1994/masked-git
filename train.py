@@ -1,7 +1,9 @@
 from Models.vqgan import VQGan
 from Models.discriminator import Discriminator
-from Data.generator import DataGen
+from Data.generator import PreProcessor, Transform
 from Models.losses import calc_quant_loss, adopt_weight, LPIPS, calc_lambda
+from torch.utils.data import DataLoader
+from torchvision import transforms as T
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
@@ -18,7 +20,9 @@ class Train:
             self.discriminator.parameters(),
             lr=1e-4
         )
-        self.generator = DataGen()()
+        transform = T.compose([Transform(crop_size=256)])
+        self.dataset = PreProcessor(folder="Data/images/train2014", transform=)
+        self.generator = DataLoader(self.dataset, batch_size=8, shuffle=True, num_workers=8)
         self.perc_loss = LPIPS().eval()
 
     def __call__(self):
@@ -26,6 +30,8 @@ class Train:
         save_every = 1000
         ckpt_dir = "Ckpts/"
         for img_batch in self.generator:
+            print(img_batch.shape)
+            1/0
             imgs = torch.tensor(img_batch).permute(0, 3, 1, 2).contiguous()
             step += 1
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
