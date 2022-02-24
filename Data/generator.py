@@ -9,10 +9,10 @@ class Transform:
         self.crop_size = crop_size
 
     def __call__(self, image):
-        h, w, c = self.image.shape
+        h, w, c = image.shape
         start_height = randint(0, h - self.crop_size)
         start_width = randint(0, w - self.crop_size)
-        return self.image[start_height : start_height + 256, start_width : start_width + 256, :]
+        return image[start_height : start_height + 256, start_width : start_width + 256, :]
 
 class PreProcessor(Dataset):
     def __init__(self, folder="Data/images", transform=None):
