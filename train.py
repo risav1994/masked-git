@@ -32,7 +32,7 @@ class Train:
 
     def __call__(self):
         step = 0
-        save_every = 1
+        save_every = 10
         max_to_keep = 5
         ckpt_dir = "Ckpts/"
         ckpt_queue = deque()
