@@ -15,8 +15,12 @@ import numpy as np
 class Train:
     def __init__(self, base_channel=128, levels=[1, 1, 2, 2, 4], num_enc_residual_layers=2, num_dec_residual_layers=3, latent_dims=256, num_vectors=1024, num_layers=3, base_filters=64):
         self.device = torch.device("cuda")
-        self.vqgan = VQGan(base_channel, levels, num_enc_residual_layers, num_dec_residual_layers, latent_dims, num_vectors).to(self.device)
-        self.discriminator = Discriminator(num_layers, base_filters).to(self.device)
+        self.vqgan = nn.DataParallel(
+            VQGan(base_channel, levels, num_enc_residual_layers, num_dec_residual_layers, latent_dims, num_vectors)
+        ).to(self.device)
+        self.discriminator = nn.DataParallel(
+            Discriminator(num_layers, base_filters)
+        ).to(self.device)
         self.opt_vq = torch.optim.Adam(
             self.vqgan.parameters(),
             lr=1e-4
@@ -28,7 +32,7 @@ class Train:
         transform = T.Compose([Transform(crop_size=256)])
         self.dataset = PreProcessor(folder="Data/images/train2014", transform=transform)
         self.generator = DataLoader(self.dataset, batch_size=8, shuffle=True, num_workers=8)
-        self.perc_loss = LPIPS().eval().to(self.device)
+        self.perc_loss = nn.DataParallel(LPIPS().eval()).to(self.device)
 
     def __call__(self):
         step = 0
