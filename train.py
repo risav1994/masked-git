@@ -71,6 +71,7 @@ class Train:
 
                     self.opt_vq.step()
                     self.opt_disc.step()
+                    torch.cuda.empty_cache()
                     bar.set_postfix({"VQ Loss": np.round(vq_loss.cpu().detach().numpy(), 3), "Gan Loss": np.round(gan_loss.cpu().detach().numpy(), 3)})
 
                     if step % save_every == 0:
