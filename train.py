@@ -40,6 +40,7 @@ class Train:
         for epoch in range(num_epochs):
             with tqdm(self.generator) as bar:
                 for imgs in self.generator:
+                    imgs = imgs.to(self.device)
                     step += 1
                     bar.update(1)
                     decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
