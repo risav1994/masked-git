@@ -21,7 +21,7 @@ class Train:
             lr=1e-4
         )
         transform = T.compose([Transform(crop_size=256)])
-        self.dataset = PreProcessor(folder="Data/images/train2014", transform=)
+        self.dataset = PreProcessor(folder="Data/images/train2014", transform=transform)
         self.generator = DataLoader(self.dataset, batch_size=8, shuffle=True, num_workers=8)
         self.perc_loss = LPIPS().eval()
 
