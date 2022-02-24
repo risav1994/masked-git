@@ -12,7 +12,9 @@ class Transform:
         h, w, c = image.shape
         start_height = randint(0, h - self.crop_size)
         start_width = randint(0, w - self.crop_size)
-        return image[start_height : start_height + 256, start_width : start_width + 256, :]
+        img = np.transpose(image[start_height : start_height + 256, start_width : start_width + 256, :], (2, 0, 1))
+        img = img.astype(np.float32)
+        return img
 
 class PreProcessor(Dataset):
     def __init__(self, folder="Data/images", transform=None):
