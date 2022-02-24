@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 import os
+import numpy as np
 
 class Train:
     def __init__(self, base_channel=128, levels=[1, 1, 2, 2, 4], num_enc_residual_layers=2, num_dec_residual_layers=3, latent_dims=256, num_vectors=1024, num_layers=3, base_filters=64):
