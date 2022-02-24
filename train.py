@@ -61,16 +61,6 @@ class Train:
                 torch.save(self.vqgan.state_dict(), f"{ckpt_dir}vqgan_{step}.pt")
 
 
-    def calc_lmda(self, rec_loss, g_loss, tape):
-        last_layer = self.vq_model.layers[-1].weights
-        rec_grad = tape.gradient(rec_loss, last_layer)[0]
-        g_grad = tape.gradient(g_loss, last_layer)[0]
-        lmda = tf.norm(rec_grad) / (tf.norm(g_grad) + 1e-6)
-        lmda = tf.clip_by_value(lmda, 0, 1e4)
-        lmda = tf.stop_gradient(lmda)
-        return 0.8 * lmda
-
-
 if __name__ == "__main__":
     train = Train()
     train()
