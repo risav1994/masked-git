@@ -15,19 +15,20 @@ class Transform:
             start_width = randint(0, w - self.crop_size)
             img = np.transpose(image[start_height : start_height + self.crop_size, start_width : start_width + self.crop_size, :], (2, 0, 1))
         else:
-            left_h_pad = np.zeros((0, self.crop_size, c), dtype=np.uint8)
-            right_h_pad = np.zeros((0, self.crop_size, c), dtype=np.uint8)
+            left_h_pad = np.zeros((0, min(w, self.crop_size), c), dtype=np.uint8)
+            right_h_pad = np.zeros((0, min(w, self.crop_size), c), dtype=np.uint8)
             left_w_pad = np.zeros((self.crop_size, 0, c), dtype=np.uint8)
             right_w_pad = np.zeros((self.crop_size, 0, c), dtype=np.uint8)
             img = image
             if h < self.crop_size:
                 diff = self.crop_size - h
                 pad = int(diff / 2)
-                left_h_pad = np.zeros((pad, self.crop_size, c), dtype=np.uint8)
-                right_h_pad = np.zeros((diff - pad, self.crop_size, c), dtype=np.uint8)
+                left_h_pad = np.zeros((pad, min(w, self.crop_size), c), dtype=np.uint8)
+                right_h_pad = np.zeros((diff - pad, min(w, self.crop_size), c), dtype=np.uint8)
             else:
                 start_height = randint(0, h - self.crop_size)
                 img = img[start_height : start_height + self.crop_size, :, :]
+
             if w < self.crop_size:
                 diff = self.crop_size - w
                 pad = int(diff / 2)
