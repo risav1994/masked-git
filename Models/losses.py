@@ -53,7 +53,7 @@ def adopt_weight(steps, threshold=10000):
     return 1
 
 def calc_lambda(nll_loss, g_loss, vqgan):
-    vqgan = vqgan.module if vqgan isinstance(nn.DataParallel) else vqgan
+    vqgan = vqgan.module if isinstance(vqgan, nn.DataParallel) else vqgan
     last_layer = vqgan.decoder.model[-1].weight
     nll_grads = torch.autograd.grad(nll_loss, last_layer, retain_graph=True)[0]
     g_grads = torch.autograd.grad(g_loss, last_layer, retain_graph=True)[0]
