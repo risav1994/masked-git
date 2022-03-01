@@ -76,7 +76,13 @@ class Train:
                     self.opt_vq.step()
                     self.opt_disc.step()
                     torch.cuda.empty_cache()
-                    bar.set_postfix({"VQ Loss": np.round(vq_loss.cpu().detach().numpy(), 6), "Gan Loss": np.round(gan_loss.cpu().detach().numpy(), 6)})
+                    bar.set_postfix({
+                        "VQ Loss": np.round(vq_loss.cpu().detach().numpy(), 6),
+                        "Gan Loss": np.round(gan_loss.cpu().detach().numpy(), 6),
+                        "Rec Loss": np.round(rec_loss.cpu().detach().numpy(), 6),
+                        "Perp Loss": np.round(perceptual_loss.cpu().detach().numpy(), 6),
+                        "nll_loss": np.round(nll_loss.cpu().detach().numpy(), 6)
+                    })
 
                     if step % save_every == 0:
                         ckpt_name = f"{ckpt_dir}vqgan_{step}.pt"
