@@ -51,9 +51,9 @@ class Train:
                     quant_loss = calc_quant_loss(z_q, z)
                     disc_real = self.discriminator(imgs)
                     disc_fake = self.discriminator(decoded)
-                    perceptual_loss = self.perc_loss(imgs, decoded)
-                    rec_loss = torch.abs(imgs - decoded)
-                    nll_loss = (perceptual_loss + rec_loss).mean()
+                    perceptual_loss = self.perc_loss(imgs, decoded).mean()
+                    rec_loss = torch.abs(imgs - decoded).mean()
+                    nll_loss = perceptual_loss + rec_loss
                     g_loss = -torch.mean(disc_fake)
 
                     disc_coeff = adopt_weight(step, threshold=1250)
@@ -79,7 +79,7 @@ class Train:
                     bar.set_postfix({
                         "VQ Loss": np.round(vq_loss.cpu().detach().numpy(), 6),
                         "Gan Loss": np.round(gan_loss.cpu().detach().numpy(), 6),
-                        "Rec Loss": np.round(rec_loss.mean().cpu().detach().numpy(), 6),
+                        "Rec Loss": np.round(rec_loss.cpu().detach().numpy(), 6),
                         "Perp Loss": np.round(perceptual_loss.cpu().detach().numpy(), 6),
                         "nll_loss": np.round(nll_loss.cpu().detach().numpy(), 6)
                     })
