@@ -82,7 +82,8 @@ class Train:
                         "Rec Loss": np.round(rec_loss.cpu().detach().numpy(), 6),
                         "Perp Loss": np.round(perceptual_loss.cpu().detach().numpy(), 6),
                         "nll_loss": np.round(nll_loss.cpu().detach().numpy(), 6),
-                        "quant_loss": np.round(quant_loss.cpu().detach().numpy(), 6)
+                        "quant_loss": np.round(quant_loss.cpu().detach().numpy(), 6),
+                        "lambda": lmda,
                     })
 
                     if step % save_every == 0:
