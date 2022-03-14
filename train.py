@@ -56,7 +56,7 @@ class Train:
                     nll_loss = perceptual_loss + rec_loss
                     g_loss = -torch.mean(disc_fake)
 
-                    disc_coeff = adopt_weight(step, threshold=1250)
+                    disc_coeff = adopt_weight(step, threshold=1)
                     lmda = 0
                     if disc_coeff > 0:
                         lmda = calc_lambda(nll_loss, g_loss, self.vqgan)
@@ -84,6 +84,7 @@ class Train:
                         "nll_loss": np.round(nll_loss.cpu().detach().numpy(), 6),
                         "quant_loss": np.round(quant_loss.cpu().detach().numpy(), 6),
                         "lambda": lmda,
+                        "g_loss": np.round(g_loss.cpu().detach().numpy(), 6),
                     })
 
                     if step % save_every == 0:
