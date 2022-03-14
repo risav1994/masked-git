@@ -40,7 +40,7 @@ class Train:
         max_to_keep = 5
         ckpt_dir = "Ckpts/"
         ckpt_queue = deque()
-        num_epochs = 20
+        num_epochs = 200
         for epoch in range(num_epochs):
             with tqdm(self.generator) as bar:
                 for imgs in self.generator:
