@@ -83,7 +83,7 @@ class Train:
                         "Perp Loss": np.round(perceptual_loss.cpu().detach().numpy(), 6),
                         "nll_loss": np.round(nll_loss.cpu().detach().numpy(), 6),
                         "quant_loss": np.round(quant_loss.cpu().detach().numpy(), 6),
-                        "lambda": np.round(lmda.cpu().detach().numpy(), 6),
+                        "lambda": np.round(lmda.cpu().detach().numpy(), 6) if not isinstance(lmda, int) else lmda,
                         "g_loss": np.round(g_loss.cpu().detach().numpy(), 6),
                         "disc_coeff": disc_coeff,
                     })
