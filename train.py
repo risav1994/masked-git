@@ -90,7 +90,8 @@ class Train:
 
                     if step % save_every == 0:
                         ckpt_name = f"{ckpt_dir}vqgan_{step}.pt"
-                        torch.save(self.vqgan.state_dict(), f"{ckpt_dir}vqgan_{step}.pt")
+                        torch.save(self.vqgan.module.state_dict(), f"{ckpt_dir}vqgan_{step}.pt")
+                        torch.save(self.discriminator.module.state_dict(), f"{ckpt_dir}discriminator_{step}.pt")
                         ckpt_queue.append(ckpt_name)
                         if len(ckpt_queue) > max_to_keep:
                             os.remove(ckpt_queue.popleft())
