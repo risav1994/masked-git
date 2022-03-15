@@ -39,7 +39,8 @@ class Train:
         save_every = 1000
         max_to_keep = 5
         ckpt_dir = "Ckpts/"
-        ckpt_queue = deque()
+        vqgan_ckpt_queue = deque()
+        disc_ckpt_queue = deque()
         num_epochs = 200
         for epoch in range(num_epochs):
             with tqdm(self.generator) as bar:
@@ -89,12 +90,15 @@ class Train:
                     })
 
                     if step % save_every == 0:
-                        ckpt_name = f"{ckpt_dir}vqgan_{step}.pt"
-                        torch.save(self.vqgan.module.state_dict(), f"{ckpt_dir}vqgan_{step}.pt")
-                        torch.save(self.discriminator.module.state_dict(), f"{ckpt_dir}discriminator_{step}.pt")
-                        ckpt_queue.append(ckpt_name)
+                        vqgan_ckpt_name = f"{ckpt_dir}vqgan_{step}.pt"
+                        disc_ckpt_name = f"{ckpt_dir}discriminator_{step}.pt"
+                        torch.save(self.vqgan.module.state_dict(), vqgan_ckpt_name)
+                        torch.save(self.discriminator.module.state_dict(), disc_ckpt_name)
+                        vqgan_ckpt_queue.append(vqgan_ckpt_name)
+                        disc_ckpt_queue.append(disc_ckpt_name)
                         if len(ckpt_queue) > max_to_keep:
-                            os.remove(ckpt_queue.popleft())
+                            os.remove(vqgan_ckpt_queue.popleft())
+                            os.remove(disc_ckpt_queue.popleft())
 
 
 if __name__ == "__main__":
