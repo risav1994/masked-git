@@ -96,7 +96,7 @@ class Train:
                         torch.save(self.discriminator.module.state_dict(), disc_ckpt_name)
                         vqgan_ckpt_queue.append(vqgan_ckpt_name)
                         disc_ckpt_queue.append(disc_ckpt_name)
-                        if len(ckpt_queue) > max_to_keep:
+                        if len(vqgan_ckpt_queue) > max_to_keep:
                             os.remove(vqgan_ckpt_queue.popleft())
                             os.remove(disc_ckpt_queue.popleft())
 
