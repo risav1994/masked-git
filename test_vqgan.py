@@ -30,7 +30,7 @@ class Test:
         imgs = next(self.iterator).to(self.device)
         with torch.no_grad():
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
-            output = decoded.permute(0, 3, 1, 2).detach().numpy().astype(np.uint8)
+            output = decoded.permute(0, 2, 3, 1).detach().numpy().astype(np.uint8)
             print(output.shape)
 
 
