@@ -4,6 +4,7 @@ from Models.vqgan import VQGan
 from Models.discriminator import Discriminator
 from Data.generator import PreProcessor, Transform
 import cv2
+import torch
 
 class Test:
     def __init__(self, base_channel=128, levels=[1, 1, 2, 2, 4], num_enc_residual_layers=2, num_dec_residual_layers=3, latent_dims=256, num_vectors=1024, num_layers=3, base_filters=64):
