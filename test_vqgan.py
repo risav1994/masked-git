@@ -6,6 +6,7 @@ from Data.generator import PreProcessor, Transform
 import cv2
 import torch
 import numpy as np
+import sys
 
 class Test:
     def __init__(self, base_channel=128, levels=[1, 1, 2, 2, 4], num_enc_residual_layers=2, num_dec_residual_layers=3, latent_dims=256, num_vectors=1024, num_layers=3, base_filters=64):
@@ -39,4 +40,9 @@ class Test:
 
 if __name__ == "__main__":
     test = Test()
-    test(path="Ckpts/saved-ckpts/v2/vqgan_104000.pt")
+    args = sys.argv
+    if len(args) > 1:
+        path = args[1]
+    else:
+        path = "Ckpts/saved-ckpts/v2/vqgan_111000.pt"
+    test(path=path)
