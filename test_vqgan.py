@@ -45,4 +45,5 @@ if __name__ == "__main__":
         path = args[1]
     else:
         path = "Ckpts/saved-ckpts/v2/vqgan_111000.pt"
+    print(f"Reading from path - {path}")
     test(path=path)
