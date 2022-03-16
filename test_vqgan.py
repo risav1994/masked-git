@@ -25,7 +25,7 @@ class Test:
             self.model_loaded = True
 
     def __call__(self, path):
-        self.load_model(self, path)
+        self.load_model(path)
         imgs = next(self.iterator).to(self.device)
         with torch.no_grad():
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
