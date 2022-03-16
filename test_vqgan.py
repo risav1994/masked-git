@@ -28,11 +28,13 @@ class Test:
     def __call__(self, path):
         self.load_model(path)
         imgs = next(self.iterator).to(self.device)
+        orig_imgs = imgs.permute(0, 2, 3, 1).detach().numpy().astype(np.uint8)
         with torch.no_grad():
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
             output = decoded.permute(0, 2, 3, 1).detach().numpy().astype(np.uint8)
             for i in range(len(output)):
                 cv2.imwrite(f"Data/out_{i}.jpg", output[i, :, :, :])
+                cv2.imwrite(f"Data/orig_{i}.jpg", orig_imgs[i, :, :, :])
 
 
 if __name__ == "__main__":
