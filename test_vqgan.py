@@ -39,4 +39,4 @@ class Test:
 
 if __name__ == "__main__":
     test = Test()
-    test(path="Ckpts/saved-ckpts/v2/vqgan_98000.pt")
+    test(path="Ckpts/saved-ckpts/v2/vqgan_104000.pt")
