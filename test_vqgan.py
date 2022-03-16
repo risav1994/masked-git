@@ -31,7 +31,8 @@ class Test:
         with torch.no_grad():
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
             output = decoded.permute(0, 2, 3, 1).detach().numpy().astype(np.uint8)
-            print(output.shape)
+            for i in range(len(output)):
+                cv2.imwrite(f"Data/out_{i}.jpg", output[i, :, :, :])
 
 
 if __name__ == "__main__":
