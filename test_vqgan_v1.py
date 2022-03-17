@@ -29,6 +29,7 @@ class Test:
     def __call__(self, path):
         self.load_model(path)
         imgs = next(self.iterator).to(self.device)
+        imgs = (imgs + 1) * 127.5
         orig_imgs = imgs.permute(0, 2, 3, 1).detach().numpy().astype(np.uint8)
         with torch.no_grad():
             decoded, z_q_ma, z_q, z, inp_quant = self.vqgan(imgs)
