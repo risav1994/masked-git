@@ -38,7 +38,7 @@ class Train:
         step = 0
         save_every = 1000
         max_to_keep = 5
-        ckpt_dir = "Ckpts/"
+        ckpt_dir = "Ckpts/v2/"
         vqgan_ckpt_queue = deque()
         disc_ckpt_queue = deque()
         num_epochs = 200
