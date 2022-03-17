@@ -41,6 +41,7 @@ class Transform:
             img = np.concatenate((left_w_pad, img, right_w_pad), axis=1)
             img = np.transpose(img, (2, 0, 1))
         img = img.astype(np.float32)
+        img = img / 127.5 - 1
         return img
 
 class PreProcessor(Dataset):
