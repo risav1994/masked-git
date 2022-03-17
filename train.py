@@ -31,7 +31,7 @@ class Train:
         )
         transform = T.Compose([Transform(crop_size=256)])
         self.dataset = PreProcessor(folder="Data/images/train2014", transform=transform)
-        self.generator = DataLoader(self.dataset, batch_size=4, shuffle=True, num_workers=8)
+        self.generator = DataLoader(self.dataset, batch_size=32, shuffle=True, num_workers=8)
         self.perc_loss = nn.DataParallel(LPIPS().eval()).to(self.device)
 
     def __call__(self):
