@@ -52,7 +52,7 @@ class Train:
                     quant_loss = calc_quant_loss(z_q, z)
                     disc_real = self.discriminator(imgs)
                     disc_fake = self.discriminator(decoded)
-                    perceptual_loss = self.perc_loss((imgs + 1) * 127.5, (decoded + 1) * 127.5).mean()
+                    perceptual_loss = self.perc_loss(imgs, decoded).mean()
                     rec_loss = torch.abs(imgs - decoded).mean()
                     nll_loss = perceptual_loss + rec_loss
                     g_loss = -torch.mean(disc_fake)
