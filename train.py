@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 import os
+import sys
 import numpy as np
 
 class Train:
@@ -21,6 +22,9 @@ class Train:
         self.discriminator = nn.DataParallel(
             Discriminator(num_layers, base_filters)
         ).to(self.device)
+        if len(sys.argv) > 1:
+            self.vqgan.module.load_state_dict(torch.load(sys.argv[1]))
+            self.discriminator.module.load_state_dict(torch.load(sys.argv[2]))
         self.opt_vq = torch.optim.Adam(
             self.vqgan.parameters(),
             lr=1e-4

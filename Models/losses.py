@@ -60,4 +60,4 @@ def calc_lambda(nll_loss, g_loss, vqgan):
 
     λ = torch.norm(nll_grads) / (torch.norm(g_grads) + 1e-4)
     λ = torch.clamp(λ, 0, 1e4).detach()
-    return 0.2 * λ
+    return λ

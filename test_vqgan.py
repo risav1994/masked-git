@@ -23,7 +23,7 @@ class Test:
 
     def load_model(self, path):
         if not self.model_loaded:
-            self.vqgan.load_state_dict(torch.load(path))
+            self.vqgan.load_state_dict(torch.load(path, map_location=self.device))
             self.model_loaded = True
 
     def __call__(self, path):
