@@ -39,7 +39,7 @@ class Train:
         self.perc_loss = nn.DataParallel(LPIPS().eval()).to(self.device)
 
     def __call__(self):
-        step = 0
+        step = 233000
         save_every = 1000
         max_to_keep = 5
         ckpt_dir = "Ckpts/v2/"
