@@ -107,7 +107,7 @@ class Attention(nn.Module):
         q_reshaped = q_reshaped.permute(0, 2, 1)
         k_reshaped = k.reshape(b, c, h * w)
         v_reshaped = v.reshape(b, c, h * w).permute(0, 2, 1)
-        scaled_dot = torch.bmm(q_reshaped, k_reshaped) / (c ** 0.5)
+        scalar_dot = torch.bmm(q_reshaped, k_reshaped) / (c ** 0.5)
         softmax = F.softmax(scalar_dot, dim=-1)
         attn = torch.bmm(softmax, v_reshaped).permute(0, 2, 1)
         attn_reshaped = attn.reshape(b, c, h, w)
