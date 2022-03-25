@@ -1,3 +1,4 @@
 Ckpts/*
 Data/images/*
 **/__pycache__/
+**/*.jpg
